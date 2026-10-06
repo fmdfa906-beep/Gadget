@@ -1,0 +1,260 @@
+{
+  "entities": {
+    "Product": {
+      "title": "Product",
+      "description": "Electronic gadget item for sale in Gadget Garden shop",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Product title",
+          "maxLength": 200
+        },
+        "description": {
+          "type": "string",
+          "description": "Detailed description and specs of the gadget",
+          "maxLength": 2500
+        },
+        "image": {
+          "type": "string",
+          "description": "Product image URL from Firebase Storage or CDN",
+          "maxLength": 2000
+        },
+        "imageUrl": {
+          "type": "string",
+          "description": "Product image URL",
+          "maxLength": 2000
+        },
+        "regularPrice": {
+          "type": "number",
+          "description": "Standard market price in BDT"
+        },
+        "salePrice": {
+          "type": "number",
+          "description": "Discounted selling price in BDT"
+        },
+        "stock": {
+          "type": "number",
+          "description": "Available stock quantity"
+        },
+        "isAvailable": {
+          "type": "boolean",
+          "description": "Whether product is active for purchase"
+        },
+        "category": {
+          "type": "string",
+          "description": "Category name",
+          "maxLength": 100
+        },
+        "badge": {
+          "type": "string",
+          "description": "Optional badge label",
+          "maxLength": 50
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "ISO timestamp of creation"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "ISO timestamp of last update"
+        }
+      },
+      "required": ["name", "description", "regularPrice", "salePrice", "stock", "category", "createdAt"]
+    },
+    "Category": {
+      "title": "Category",
+      "description": "Product category",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Category name in English",
+          "maxLength": 100
+        },
+        "banglaName": {
+          "type": "string",
+          "description": "Category name in Bengali",
+          "maxLength": 100
+        }
+      },
+      "required": ["name", "banglaName"]
+    },
+    "Order": {
+      "title": "Order",
+      "description": "Customer order placed in the shop",
+      "type": "object",
+      "properties": {
+        "orderId": {
+          "type": "string",
+          "description": "Unique readable Order identifier",
+          "maxLength": 60
+        },
+        "customerName": {
+          "type": "string",
+          "description": "Full name of customer",
+          "maxLength": 150
+        },
+        "phone": {
+          "type": "string",
+          "description": "Customer contact mobile phone number",
+          "maxLength": 25
+        },
+        "mobileNumber": {
+          "type": "string",
+          "description": "Contact mobile number",
+          "maxLength": 25
+        },
+        "address": {
+          "type": "string",
+          "description": "Delivery address and district",
+          "maxLength": 500
+        },
+        "fullAddress": {
+          "type": "string",
+          "description": "Full street address",
+          "maxLength": 500
+        },
+        "district": {
+          "type": "string",
+          "description": "Delivery district in Bangladesh",
+          "maxLength": 100
+        },
+        "note": {
+          "type": "string",
+          "description": "Optional delivery instructions",
+          "maxLength": 500
+        },
+        "products": {
+          "type": "array",
+          "description": "List of ordered gadget items"
+        },
+        "items": {
+          "type": "array",
+          "description": "List of ordered items"
+        },
+        "subtotal": {
+          "type": "number",
+          "description": "Subtotal in BDT"
+        },
+        "deliveryCharge": {
+          "type": "number",
+          "description": "Delivery fee in BDT"
+        },
+        "totalAmount": {
+          "type": "number",
+          "description": "Final payable amount in BDT"
+        },
+        "paymentMethod": {
+          "type": "string",
+          "description": "Payment method chosen (Cash on Delivery)",
+          "maxLength": 50
+        },
+        "orderStatus": {
+          "type": "string",
+          "description": "Order processing status",
+          "enum": ["Pending", "Confirmed", "Processing", "Shipped", "Delivered", "Cancelled"]
+        },
+        "status": {
+          "type": "string",
+          "description": "Order status alias",
+          "enum": ["Pending", "Confirmed", "Processing", "Shipped", "Delivered", "Cancelled"]
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "ISO timestamp of order creation"
+        }
+      },
+      "required": ["orderId", "customerName", "phone", "address", "products", "totalAmount", "deliveryCharge", "orderStatus", "createdAt"]
+    },
+    "ShopSettings": {
+      "title": "ShopSettings",
+      "description": "Store configuration and delivery charge options",
+      "type": "object",
+      "properties": {
+        "shopName": {
+          "type": "string",
+          "maxLength": 100
+        },
+        "whatsappNumber": {
+          "type": "string",
+          "maxLength": 25
+        },
+        "phoneContact": {
+          "type": "string",
+          "maxLength": 25
+        },
+        "insideDhakaDelivery": {
+          "type": "number"
+        },
+        "outsideDhakaDelivery": {
+          "type": "number"
+        },
+        "shopDescription": {
+          "type": "string",
+          "maxLength": 1000
+        },
+        "address": {
+          "type": "string",
+          "maxLength": 300
+        },
+        "announcement": {
+          "type": "string",
+          "maxLength": 300
+        }
+      },
+      "required": ["shopName", "whatsappNumber", "insideDhakaDelivery", "outsideDhakaDelivery"]
+    },
+    "Admin": {
+      "title": "Admin",
+      "description": "Authorized shop admin account",
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "maxLength": 150
+        },
+        "role": {
+          "type": "string",
+          "maxLength": 50
+        },
+        "createdAt": {
+          "type": "string"
+        }
+      },
+      "required": ["email", "role", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/products/{productId}": {
+      "schema": {
+        "$ref": "#/entities/Product"
+      },
+      "description": "Gadget Garden catalogue items accessible for viewing by customers, editable by admin"
+    },
+    "/categories/{categoryId}": {
+      "schema": {
+        "$ref": "#/entities/Category"
+      },
+      "description": "Shop categories"
+    },
+    "/orders/{orderId}": {
+      "schema": {
+        "$ref": "#/entities/Order"
+      },
+      "description": "Customer purchase orders with Cash on Delivery"
+    },
+    "/settings/{settingId}": {
+      "schema": {
+        "$ref": "#/entities/ShopSettings"
+      },
+      "description": "Shop global settings"
+    },
+    "/admins/{adminId}": {
+      "schema": {
+        "$ref": "#/entities/Admin"
+      },
+      "description": "Registered store admin profiles"
+    }
+  }
+}

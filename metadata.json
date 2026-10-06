@@ -1,0 +1,8 @@
+{
+  "name": "Gadget Garden - Electronic Gadget Shop Bangladesh",
+  "description": "Online electronic gadget shop in Bangladesh. Buy smart watches, wireless earbuds, power banks, speakers, chargers and mobile accessories with Cash on Delivery and WhatsApp order support.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
